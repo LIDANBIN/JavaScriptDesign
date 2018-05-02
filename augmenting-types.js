@@ -163,3 +163,59 @@ console.log(NaN === NaN) // false
 console.log(null === null) // true
 console.log(null === undefined) // false
 console.log(null == undefined) // true
+
+
+console.log('正则表达式----------------------------------------')
+var reg = /\d\w\d/g;
+var str = '4a8h7a7k3w8';
+var arr = [];
+var a;
+while (a = reg.exec(str)) {
+    console.log(a, reg.lastIndex)
+    arr.push(a[0]);
+    reg.lastIndex -= 1;
+    console.log(reg.lastIndex)
+}
+
+var rts = /([?&])_=[^&]*/;
+var cacheURL = "http://localhost:8080/qinl/xx.action?_=me";
+var result = rts.exec(cacheURL);
+console.log(result);
+
+var s = 'script language="javascript" type=" text/javascript "';
+var f = function ($1) {
+    return $1.substring(0, 1).toUpperCase() + $1.substring(1);
+}
+// 传入第二个函数的参数顺序是：每次匹配的文本(这里是单词)，然后顺次是捕获组的值，然后是匹配字符在下标中的位置  
+// 最后一个参数表示字符串本身!  
+var a = s.replace(/(\b\w+\b)/g, f);
+// 打印Script Language="Javascript" Type=" Text/Javascript "  
+console.log(a);
+// 改进
+var f = function ($1, $2, $3) {
+    console.log($1, $2, $3);
+    //  script s cript
+    //  language l anguage
+    //  javascript j avascript
+    //  type t ype
+    //  text t ext
+    //  javascript j avascript
+    return $2.toUpperCase() + $3;
+}
+// 传入第二个函数的参数顺序是：每次匹配的文本(这里是单词)，然后顺次是捕获组的值，然后是匹配字符在下标中的位置  
+// 最后一个参数表示字符串本身!  
+var a = s.replace(/\b(\w)(\w*)\b/g, f);
+console.log(a);
+
+
+var str = '<div class="handleC"/>',
+rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig
+var fun = function($1, $2, $3) {
+    console.log('$1=' + $1, '$2=' + $2, '$3=' + $3); // $1=<div class="handleC"/> $2=div class="handleC" $3=div
+    return "<" + $1 + "></" + $2 + ">";
+}
+// var elem = str.replace(rxhtmlTag, fun);
+var elem = str.replace(rxhtmlTag, "<$1></$2>");
+console.log(elem); // <div class="handleC"></div>
+
+console.log('正则表达式----------------------------------------')
