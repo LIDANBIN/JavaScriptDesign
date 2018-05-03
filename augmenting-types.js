@@ -208,7 +208,7 @@ var a = s.replace(/\b(\w)(\w*)\b/g, f);
 console.log(a);
 
 
-var str = '<div class="handleC"/>',
+var str = '<div class="handleC"/><div/><hr/><p><p/>',
 rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig
 var fun = function($1, $2, $3) {
     console.log('$1=' + $1, '$2=' + $2, '$3=' + $3); // $1=<div class="handleC"/> $2=div class="handleC" $3=div
@@ -217,5 +217,9 @@ var fun = function($1, $2, $3) {
 // var elem = str.replace(rxhtmlTag, fun);
 var elem = str.replace(rxhtmlTag, "<$1></$2>");
 console.log(elem); // <div class="handleC"></div>
+
+
+var rtagName = /<([\w:]+)/ig
+console.log(rtagName.exec(str));
 
 console.log('正则表达式----------------------------------------')
