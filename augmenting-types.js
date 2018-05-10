@@ -209,8 +209,8 @@ console.log(a);
 
 
 var str = '<div class="handleC"/></div></hr><p></p>',
-rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig
-var fun = function($1, $2, $3) {
+    rxhtmlTag = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig
+var fun = function ($1, $2, $3) {
     console.log('$1=' + $1, '$2=' + $2, '$3=' + $3); // $1=<div class="handleC"/> $2=div class="handleC" $3=div
     return "<" + $1 + "></" + $2 + ">";
 }
@@ -223,3 +223,11 @@ var rtagName = /<([\w:]+)/ig
 console.log(rtagName.exec(str));
 
 console.log('正则表达式----------------------------------------')
+// console.log(dom.a);
+// (function () {
+//     let dom = { 
+//         a: function () { 
+//             document.querySelemctor("#XXX").childElementNode 
+//         } 
+//     }
+// })();

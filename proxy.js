@@ -13,6 +13,7 @@ var myImage = (function () {
     }
 })();
 myImage.setSrc('https://i0.hdslb.com/bfs/face/a26ff2755da5a18496927937d2ad14cd89fec79f.jpg@100w_100h.webp');
+
 // 引入代理对象proxyImage
 var myImage = (function () {
     var imgNode = document.createElement('img');
