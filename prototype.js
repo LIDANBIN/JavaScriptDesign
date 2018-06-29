@@ -26,7 +26,6 @@ console.log(Object.getPrototypeOf(a) === Person.prototype) // true
 // 利用apply把document当作this传入getId函数
 var getId = document.getElementById
 // getId('div') // 会抛出异常，因为this为window
-
 document.getElementById = (function (func) {
 	return function () {
 		return func.apply(document, arguments);
@@ -51,7 +50,7 @@ B.prototype.getName = function () {
 	return this.name;
 }
 var b = new B('nine');
-console.log(b.getName());
+console.log(b.getName()); 
 
 // 另一种场景是在操作arguments的时候 往arguments中添加新元素
 //v8引擎中的具体实现：
@@ -66,7 +65,7 @@ function ArrayPush() {
 }
 // 由此可见Array.prototype.push实际上是一个属性复制的过程，把参数按照下标一次添加到被push的对象上，顺便修改了这个对象的length属性
 // 传入的对象要满足以下两个条件
-// 1、对象本省要可以存取属性
+// 1、对象本身要可以存取属性
 // 2、对象的length属性可读写
 var len = {};
 console.log(len.length) // undefind
@@ -82,9 +81,10 @@ Function.prototype.bind = function (context) {
 		self.apply(context, arguments)
 	}
 }
+
 // 加强版，使得可以往func中预先填入参数
 Function.prototype.bind = function () {
-	console.log(arguments) // [1, 4]
+	console.log(arguments) // [Object, 1, 4]
 	var self = this, // 保留原函数
 		context = [].shift.call(arguments), // 需要绑定的this上下文
 		args = [].slice.call(arguments) // 剩余的参数转化成数组
