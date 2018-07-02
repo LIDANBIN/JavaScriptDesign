@@ -238,4 +238,5 @@ console.log('正则表达式----------------------------------------')
 
 function aaaa() {}
 console.log(aaaa.__proto__ === Function.prototype) // true
+console.log(aaaa.constructor) // function Function() {[native code]}
 console.log(aaaa.prototype.__proto__ === Object.prototype) // true 说明aaaa的原型是空的对象 aaaa原型的原型是Object的原型

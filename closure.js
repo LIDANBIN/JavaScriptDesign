@@ -7,11 +7,11 @@ for (var i = 0, type; type = ['String', 'Object', 'Number', 'Array'][i++];) {
 		}
 	})(type)
 };
-console.log(Type.isArray([1, 2, 3]))
-console.log(Type.isArray({}))
-console.log(Type.isObject([1, 2, 3]))
-console.log(Type.isNumber(1))
-console.log(Type.isString('string'))
+console.log(Type.isArray([1, 2, 3])) // true
+console.log(Type.isArray({})) // false
+console.log(Type.isObject([1, 2, 3])) // false
+console.log(Type.isNumber(1)) // true
+console.log(Type.isString('string')) // true
 
 // 利用闭包封装函数
 // 计算乘积
@@ -66,7 +66,7 @@ Function.prototype.after = function (afterFn) {
 	console.log('after outer', this) // func
 	return function () {
 		console.log('after inner', this) // window
-		var ret = _self.apply(this.arguments)
+		var ret = _self.apply(this, arguments)
 		afterFn.apply(this, arguments)
 		return ret
 	}
@@ -83,6 +83,20 @@ func = func.before(function () {
 })
 
 func();
+
+// 使用arguments.callee递归调用会获取到一个不同的this值
+var global = this;
+
+var sillyFunction = function (recursed) {
+	if (!recursed) { return arguments.callee(true); }
+	if (this !== global) {
+		console.log("This is: " + this); // This is: [object Arguments]
+	} else {
+		console.log("This is the global");
+	}
+}
+
+sillyFunction();
 
 // 函数柯里化
 // currying又称部分求值，函数接收参数之后不会立即求值，而是继续返回到另一个函数，
