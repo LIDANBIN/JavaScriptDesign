@@ -23,7 +23,7 @@ String.method('deentityify', function () {
 		lt: '<',
 		gt: '>'
 	}
-	return function () {	
+	return function () {
 		return this.replace(/&([^&;]+);/g, function (a, b) { // a表示匹配的子串 b表示第一个括号匹配的字符串
 			// console.log(11111, a, b) 
 			var r = entity[b];
@@ -236,7 +236,77 @@ console.log('正则表达式----------------------------------------')
 //     }
 // })();
 
-function aaaa() {}
+function aaaa() { }
 console.log(aaaa.__proto__ === Function.prototype) // true
 console.log(aaaa.constructor) // function Function() {[native code]}
 console.log(aaaa.prototype.__proto__ === Object.prototype) // true 说明aaaa的原型是空的对象 aaaa原型的原型是Object的原型
+
+setTimeout(function () {
+	console.log('定时器开始啦')
+});
+
+new Promise(function (resolve) {
+	console.log('马上执行for循环啦');
+	for (var i = 0; i < 10000; i++) {
+		i == 99 && resolve();
+	}
+}).then(function () {
+	console.log('执行then函数啦')
+});
+
+console.log('代码执行结束');
+
+// (function() {
+// 	var aa = bb = 4
+// })()
+// console.log('a', aa);
+// console.log('b', bb);
+
+var a = {}
+var b = { key: 1 }
+var c = { key: 2 }
+a[b] = 123;
+a[c] = 456;
+
+console.log(a[b])
+
+
+function find(str1, str2) {
+	if (str1.length > str2.length) {
+		shorter = str2;
+		longer = str1
+	} else {
+		shorter = str1;
+		longer = str2;
+	}
+	for (var subLength = shorter.length; subLength > 0; subLength--) {
+		for (var i = 0; i + subLength <= shorter.length; i++) {
+			var subString = shorter.substring(i, i + subLength);
+			// debugger;
+			if (longer.indexOf(subString) >= 0) {
+				targetString = subString;
+				return targetString;
+			}
+		}
+	}
+}
+// find("instritesting", "string");
+// console.log(targetString);
+
+
+function factorial(n){
+  // Add some code
+  if(n<0){return null;}
+  if(n==0 ||n==1){return "1";}
+  let result=[1];   //result数组存储当前阶乘结果
+  for(let num=2;num<=n;num++){
+    for(let i=0,plus=0 ; i<result.length || plus!=0 ; i++){
+      let count=(i<result.length)?(num*result[i]+plus):plus; //若当前i小于result所存数字的位数，则分别*num+plus;若等于，则直接进位。
+      result[i]=count%10;  //个位、十位、百位……上的数字，存放在数组result中
+      plus=(count-result[i])/10;
+    }
+  }
+  return result.reverse().join(""); //将数组result倒序后，即为最后的阶乘结果
+}
+
+console.log('2^N', Math.pow(2, 100000000))
